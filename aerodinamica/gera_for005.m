@@ -177,26 +177,25 @@ end
 
 
 %% Define Protuberance (Airbrake)
-%%% define Panel incidence (deflection) values
 if for005.AIRBRAKE.hasAirbrake ==1
-    fprintf(fileID,'$PROTUB\r\n');
-    fprintf(fileID,'           NPROT= 1.,\r\n');
+    fprintf(fileID, '$PROTUB\r\n');
+    fprintf(fileID,'           NPROT=1.,\r\n');
     fprintf(fileID,'           PTYPE=BLOCK,\r\n');
     fprintf(fileID,'           NLOC=');
     fprintf(fileID,'%0.f.,\r\n',for005.AIRBRAKE.nBrakes);
     fprintf(fileID,'           XPROT=');
-    fprintf(fileID,'%.2f,\r\n',for005.AIRBRAKE.positionBrakes);
+    fprintf(fileID,'%.3f,\r\n',for005.AIRBRAKE.positionBrakes);
     fprintf(fileID,'           LPROT=');
-    fprintf(fileID,'%.2f,\r\n',for005.AIRBRAKE.lBrakes);
+    fprintf(fileID,'%.3f,\r\n',for005.AIRBRAKE.lBrakes);
     fprintf(fileID,'           WPROT=');
-    fprintf(fileID,'%.2f,\r\n',for005.AIRBRAKE.wBrakes);
-    fprintf(fileID,'           LPROT=');
-    fprintf(fileID,'%.2f,',for005.AIRBRAKE.hBrakes);
+    fprintf(fileID,'%.3f,\r\n',for005.AIRBRAKE.wBrakes);
+    fprintf(fileID,'           HPROT=');
+    fprintf(fileID,'%.3f,',for005.AIRBRAKE.hBrakes);
     %fprintf(fileID,'           PHIPRO=');
     %for i = 0:(for005.AIRBRAKE.nBrakes-1)
     %    fprintf(fileID, '%0.f,', i*90);
     %end
-    fprintf(fileID,'$END\r\n');
+    fprintf(fileID,'\r\n$END\r\n');
 end
 
 %% Flight Conditions (Angles of attack, Altitudes, etc.)

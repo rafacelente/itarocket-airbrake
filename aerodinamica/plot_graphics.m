@@ -1,7 +1,7 @@
 savefigs = true;
 
-airbrake = load('AIRBRAKE_2022_01_24.mat');
-no_airbrake = load('NO_AIRBRAKE_2022_01_24.mat');
+airbrake = load('AIRBRAKE_2022_01_25.mat');
+no_airbrake = load('NO_AIRBRAKE_2022_01_25.mat');
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                   Graph 2                        %
@@ -24,7 +24,7 @@ hold on
 plot(dados.mach, M_airbrake.CD(phi_0, :, alpha_0, cg_cheio), 'LineWidth', 1)
 
 hold off
-title('$C_D$ vs Mach (100\% Fuel)', 'Interpreter','latex');
+title('$C_D$ vs Mach ($0^{\circ}$ angle of attack)', 'Interpreter','latex');
 ylabel('$C_D$', 'Interpreter','latex');
 xlabel('Mach', 'Interpreter','latex');
 legend show
