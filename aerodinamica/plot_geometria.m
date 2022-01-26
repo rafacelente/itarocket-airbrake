@@ -68,5 +68,7 @@ if for005.AXIBOD.option == 2
     axis equal;
     axis([0 4 -0.5 0.5]);
     hold off;
+    file = ['Graphics/RocketSideView_', datestr(clock,'YYYY_mm_dd'), '.png'];
+    saveas(gcf, file);
 end
 end

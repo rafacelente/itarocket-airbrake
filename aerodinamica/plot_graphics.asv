@@ -1,36 +1,68 @@
+function plot_graphics(airbrake_files, no_airbrake_file)
+
 savefigs = true;
 
-airbrake = load('AIRBRAKE_2022_01_25.mat');
-no_airbrake = load('NO_AIRBRAKE_2022_01_25.mat');
+no_airbrake = load(no_airbrake_file);
+airbrake = [];
+M = no_airbrake.M;
+
+
+dados = no_airbrake.dados;
+alpha_0 = find(dados.alpha == 0);
+phi_0 = 1;
+cg_cheio = size(dados.cg, 2);
+h2 = figure;
+plot(dados.mach, M.CD(phi_0, :, alpha_0, cg_cheio), 'LineWidth', 1)
+hold on
+
+
+airbrake = [];
+for i = 1:4%length(airbrake_files)
+    file = strcat('AIRBRAKE_POS_', num2str(i), '_2022_01_26.mat');
+    airbrake = [airbrake, load(file)];
+end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                   Graph 2                        %
 %               Plotting CD vs Mach                %
 %                                                  %  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-dados = airbrake.dados;
-M = no_airbrake.M;
-M_airbrake = airbrake.M_airbrake;
-h2 = figure;
-alpha_0 = find(dados.alpha == 0);
 
+for caso = 1:length(airbrake)
+    M_airbrake = airbrake(caso).M_airbrake;
+    plot(dados.mach, M_airbrake.CD(phi_0, :, alpha_0, cg_cheio), 'LineWidth', 1)
+    hold on
+end
+    hold off
+    title('$C_D$ vs Mach ($0^{\circ}$ angle of attack) for different airbrake axial positions', 'Interpreter','latex');
+    ylabel('$C_D$', 'Interpreter','latex');
+    xlabel('Mach', 'Interpreter','latex');
+    legend show
+    legend({'No Airbrake', 'X = 0.5 m', 'X = 1.0 m','X = 1.5 m','X = 2 m'}, 'Location', 'northwest', 'Interpreter','latex')
 
-phi_0 = 1;
-cg_cheio = size(dados.cg, 2);
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                   Graph 2                        %
+%               Plotting CM vs AoA                 %
+%                                                  %  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
-plot(dados.mach, M.CD(phi_0, :, alpha_0, cg_cheio), 'LineWidth', 1)
+figure
+mach_06 = find(dados.mach == 0.6);
+plot(dados.alpha, reshape(M.CM(phi_0, mach_06, :, cg_cheio), , 'LineWidth', 1)
 hold on
-plot(dados.mach, M_airbrake.CD(phi_0, :, alpha_0, cg_cheio), 'LineWidth', 1)
-
-hold off
-title('$C_D$ vs Mach (0^{\circ} angle of attack)', 'Interpreter','latex');
-ylabel('$C_D$', 'Interpreter','latex');
-xlabel('Mach', 'Interpreter','latex');
-legend show
-legend({'No Airbrake', 'Airbrake'}, 'Location', 'northwest', 'Interpreter','latex')
+for caso = 1:length(airbrake)
+    M_airbrake = airbrake(caso).M_airbrake;
+    plot(dados.alpha, M_airbrake.CM(phi_0, mach_06, alpha_0:end, cg_cheio), 'LineWidth', 1)
+    hold on
+end
+    hold off
+    title('$C_M$ vs AoA ($Mach = 0.6$) for different airbrake axial positions', 'Interpreter','latex');
+    ylabel('$C_M$', 'Interpreter','latex');
+    xlabel('Mach', 'Interpreter','latex');
+    legend show
+    legend({'No Airbrake', 'X = 0.5 m', 'X = 1.0 m','X = 1.5 m','X = 2 m'}, 'Location', 'northwest', 'Interpreter','latex')
 
 if savefigs
-    file = ['Graphics/CDvsMACH', datestr(clock,'YYYY_mm_dd'), '.png'];
+    file = ['Graphics/CDvsMACH_position_test_', datestr(clock,'YYYY_mm_dd'), '.png'];
     saveas(gcf, file);
 end
