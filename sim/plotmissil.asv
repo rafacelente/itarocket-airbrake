@@ -1,13 +1,13 @@
 save_plots = 0;
-end_plot = 0;
-while ~end_plot
+fim_plot = 0;
+while ~fim_plot
     imenu = menu('Plot 3D','Vel/Mach','Position x time','Trajectory', ...
         'Angles of Attack','Angular Velocities (p,q,r)', ...
         'Accelerations','Euler Angles','Aero Forces , CG(t)','Prop Forces',...
         'Aero Moments','Propulsive Moments','Wind Param.','End');
     %close all
     switch imenu
-        case 1 % Velocities and Mach
+        case 1 % Velocities and
             subplot(221);
             plot(Vb.Time,Vb.Data(:,1)); grid;
             xlabel ('t (s)');
@@ -57,7 +57,7 @@ while ~end_plot
                 saveas(gcf, 'LASC_Images/position.png');
             end
             
-        case 3  % Trajectory
+        case 3  % Trajet�ria
             subplot(221);
             plot(Xe.Data(:,1),-Xe.Data(:,3)); grid;
             xlabel ('Xe (m)');
@@ -80,7 +80,7 @@ while ~end_plot
                 saveas(gcf, 'LASC_Images/trajectory.png');
             end
             
-        case 4  % Angles of Attack
+        case 4  % �ngulos de ataque e Delta
             subplot(221);
             plot(Alfa.Time,Alfa.Data/D2R); grid;
             xlabel ('t (s)');
@@ -145,7 +145,7 @@ while ~end_plot
                 saveas(gcf, 'LASC_Images/acceleration.png');
             end
             
-        case 7  % Euler Angles
+        case 7  % �ngulos de Euler
             subplot(221);
             plot(Euler.Time,Euler.Data(:,3)/D2R); grid;
             xlabel ('t (s)');
@@ -165,7 +165,7 @@ while ~end_plot
                 saveas(gcf, 'LASC_Images/euler_angles.png');
             end
             
-        case 8  % Aero Forces
+        case 8  % For�as
             subplot(221);
             plot(FAer.Time,FAer.Data(:,1)); grid;
             xlabel ('t (s)');
@@ -192,7 +192,7 @@ while ~end_plot
                 saveas(gcf, 'LASC_Images/aero_forces.png');
             end
             
-        case 9  % Propulsive Forces
+            case 9  % For�as
             subplot(221);
             plot(FProp.Time,FProp.Data(:,1)); grid;
             xlabel ('t (s)');
@@ -219,7 +219,7 @@ while ~end_plot
                 saveas(gcf, 'LASC_Images/prop_forces.png');
             end
             
-        case 10  % Aero Moments
+        case 10  % Momentos
             subplot(221);
             plot(MAer.Time,MAer.Data(:,1)); grid;
             xlabel ('t (s)');
@@ -240,7 +240,7 @@ while ~end_plot
             end
             
             
-        case 11  % Propulsive Moments
+        case 11  % Momentos
             subplot(221);
             plot(TorqProp.Time,TorqProp.Data(:,1)); grid;
             xlabel ('t (s)');
@@ -261,7 +261,7 @@ while ~end_plot
             end
            
             
-        case 12  % Wind Parameters
+        case 12  % Parametros do vento
             subplot(231);
             plot(Vbwind.Time,Vbwind.Data(:,1)); grid;
             xlabel ('t (s)');
@@ -296,7 +296,7 @@ while ~end_plot
             if (save_plots)
                 saveas(gcf, 'LASC_Images/wind_param.png');
             end
-        case 13 % End
-            end_plot = 1;
+        case 13 % Fim
+            fim_plot = 1;
     end
 end
