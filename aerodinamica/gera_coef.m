@@ -11,7 +11,7 @@ close all
 
 %%% dados do foguete RDX
 dref = 0.1524;
-L = 2.2803;
+L = 2.352;
 Alt0 = 1294;
 %Alt0 = 0;
 dlt1 = 0;
